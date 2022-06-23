@@ -15,21 +15,21 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-public class InlineController {
+public class UserController {
 
     private final UserService userService;
 
     @RequestMapping("add")
-    public String add(String name, String sex) {
+    public Long add(String name, String sex) {
         User user = new User();
         user.setUserName(name);
         user.setSex(Byte.valueOf(sex));
         userService.save(user);
-        return "1";
+        return user.getId();
     }
 
     @RequestMapping("get")
-    public User add(Long id) {
+    public User get(Long id) {
         return userService.getById(id);
     }
 

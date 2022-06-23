@@ -1,0 +1,5 @@
+# summer-playground-shardingSphere
+1.YitIdHelper根据当前服务器ip生成workId保证生成的key不重复，本质上调用的还是雪花算法
+2.自定义分库分表策略的时候，需要在resources/META-INF下创建一个名为org.apache.shardingsphere.sharding.spi.ShardingAlgorithm的文件
+并将所有的策略类的全限定路径写入
+3.自定义分库分表配置中定义的type与实现中返回的type相同时命中策略

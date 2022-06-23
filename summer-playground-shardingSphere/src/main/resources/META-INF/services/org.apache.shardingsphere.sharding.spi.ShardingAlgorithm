@@ -1,0 +1,2 @@
+com.summer.shardingSphere.config.UserDbShardingAlgorithm
+com.summer.shardingSphere.config.UserTableShardingAlgorithm

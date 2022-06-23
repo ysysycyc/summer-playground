@@ -1,0 +1,36 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: db0,db1
+      db0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/test0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: root8888
+      db1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/test1?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: root8888
+    rules:
+      sharding:
+        tables:
+          user: # 这个可以随便取，问题不大
+            actual-data-nodes: db$->{0..1}.user$->{0..1} # 实际节点名称，格式为 库名$->{0..n1}.表名$->{0..n2}
+            database-strategy: # 分库策略
+              standard: # 标准分库策略
+                sharding-column: sex                       # 分库列名
+                sharding-algorithm-name: selfdb           # 分库算法名字
+            table-strategy: # 分表策略
+              standard: # 标准分表策略
+                sharding-column: id                        # 分表列名
+                sharding-algorithm-name: selftable           # 分表算法名字
+        sharding-algorithms: # 配置分库和分表的算法
+          selfdb: # 分表算法名字
+            type: SELFDB
+          selftable: # 分表算法名字
+            type: SELFTABLE
+    props:
+      sql-show: true
